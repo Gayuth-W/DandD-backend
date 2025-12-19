@@ -1,0 +1,23 @@
+{
+  "name": "dandd",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gayuth-W/DandD.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Gayuth-W/DandD/issues"
+  },
+  "homepage": "https://github.com/Gayuth-W/DandD#readme",
+  "description": "",
+  "dependencies": {
+    "@types/google-apps-script": "^2.0.8"
+  }
+}
