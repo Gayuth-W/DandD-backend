@@ -1,4 +1,2 @@
-/node-modules
-.clasp.json
-package-lock.json
-package.json
+.venv/
+.env
