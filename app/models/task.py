@@ -9,6 +9,8 @@ class Task(Base):
     title = Column(String, nullable=False)
     text = Column(String, nullable=False)
     score = Column(Integer, default=0)
+    stage = Column(Integer, nullable=False)
+    keywords = Column(String, nullable=True)
     project_id = Column(Integer,ForeignKey("projects.id", ondelete="CASCADE"),nullable=False)
 
     project = relationship(

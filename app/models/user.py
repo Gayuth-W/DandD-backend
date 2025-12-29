@@ -1,6 +1,6 @@
-from sqlalchemy import Column, ForeignKey, Integer, String
-from app.core.database import Base
+from sqlalchemy import Column, ForeignKey, Integer, String, UniqueConstraint
 from sqlalchemy.orm import relationship
+from app.core.database import Base
 
 class User(Base):
     __tablename__ = "users"
@@ -11,6 +11,6 @@ class User(Base):
     project_id = Column(Integer, ForeignKey("projects.id", ondelete="CASCADE"), nullable=False)
 
     project = relationship(
-        "Project",
+        "Project", 
         back_populates="users"
     )

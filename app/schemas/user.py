@@ -2,15 +2,16 @@ from pydantic import BaseModel, EmailStr
 
 class UserBase(BaseModel):
     email: EmailStr
+    project_id: int
 
 class UserCreate(UserBase):
-    pass
+    project_id: int
 
 class UserOut(UserBase):
     id: int
 
     class Config:
-        from_attributes = True
+        orm_mode = True
 
 class UserUpdate(BaseModel):
     email: EmailStr | None = None

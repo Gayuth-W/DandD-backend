@@ -1,15 +1,15 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from app.core.deps import get_db
-from app.schemas.project import ProjectCreate, ProjectUpdate, ProjectOut
+from app.schemas.project import ProjectBase, ProjectCreate, ProjectUpdate, ProjectOut
 from app.services.project_service import (
   create_project, get_project, get_projects, update_project, delete_project
 )
 
 router = APIRouter(prefix="/projects", tags=["Projects"])
 
-@router.post("/", response_model=ProjectOut)
-def create(data: ProjectCreate, db: Session = Depends(get_db)):
+@router.post("/", response_model=ProjectBase)
+def create(data: ProjectBase, db: Session = Depends(get_db)):
   return create_project(db, data)
 
 @router.get("/{project_id}", response_model=ProjectOut)

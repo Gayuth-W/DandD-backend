@@ -1,9 +1,9 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException
 from app.models.project import Project
-from app.schemas.project import ProjectCreate, ProjectUpdate
+from app.schemas.project import ProjectBase, ProjectCreate, ProjectUpdate
 
-def create_project(db: Session, data: ProjectCreate):
+def create_project(db: Session, data: ProjectBase):
   project = Project(**data.dict())
   db.add(project)
   db.commit()
