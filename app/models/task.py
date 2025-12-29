@@ -7,12 +7,11 @@ class Task(Base):
 
     id = Column(Integer, primary_key=True)
     title = Column(String, nullable=False)
-    completed = Column(Boolean, default=False)
+    text = Column(String, nullable=False)
+    score = Column(Integer, default=0)
+    project_id = Column(Integer,ForeignKey("projects.id", ondelete="CASCADE"),nullable=False)
 
-    project_id = Column(
-        Integer,
-        ForeignKey("projects.id", ondelete="CASCADE"),
-        nullable=False
+    project = relationship(
+        "Project",
+        back_populates="tasks"
     )
-
-    project = relationship("Project", back_populates="tasks")
