@@ -23,3 +23,15 @@ def select_task_for_stage(stage: int, stages: dict):
     return random.choice(stages[stage])
   
   return None
+
+def check_user_response(user_response: str, task_keywords: str):
+  """
+  This function checks if the user's response contains any of the keywords for the task.
+  """
+  if not task_keywords:
+      return False
+  
+  keywords = [kw.strip().lower() for kw in task_keywords.split(",")]
+  user_words = user_response.lower().split()
+  
+  return any(word in keywords for word in user_words)
