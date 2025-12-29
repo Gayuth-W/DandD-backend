@@ -45,3 +45,23 @@ def update_user_score(user: User, score: int, db: Session):
   db.commit()
   db.refresh(user)
   return user.t_score
+
+def play_stage(user: User, project_id: int, stage: int, user_response: str, db: Session):
+  stages = get_tasks_by_project(project_id, db)
+  
+  task = select_task_for_stage(stage, stages)
+  if not task:
+    return {"message": "No tasks available for this stage."}
+  
+  matched = check_user_response(user_response, task.keywords)
+  
+  score = task.score if matched else 0
+  updated_score = update_user_score(user, score, db)
+  
+  return {
+    "task_text": task.text,
+    "matched": matched,
+    "score_awarded": score,
+    "total_score": updated_score,
+    "next_stage": stage + 1
+  }
