@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
 from app.models.task import Task
+import random
 
 def get_tasks_by_project(project_id: int, db: Session):
   """
@@ -13,3 +14,12 @@ def get_tasks_by_project(project_id: int, db: Session):
     stages[task.stage].append(task)
   
   return stages
+
+def select_task_for_stage(stage: int, stages: dict):
+  """
+  This function selects a random task from the specified stage.
+  """
+  if stage in stages and stages[stage]:
+    return random.choice(stages[stage])
+  
+  return None
