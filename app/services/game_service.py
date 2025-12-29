@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from app.models.task import Task
 import random
+from app.models.user import User
 
 def get_tasks_by_project(project_id: int, db: Session):
   """
@@ -35,3 +36,12 @@ def check_user_response(user_response: str, task_keywords: str):
   user_words = user_response.lower().split()
   
   return any(word in keywords for word in user_words)
+
+def update_user_score(user: User, score: int, db: Session):
+  """
+  Add score to user's total score.
+  """
+  user.t_score += score
+  db.commit()
+  db.refresh(user)
+  return user.t_score
