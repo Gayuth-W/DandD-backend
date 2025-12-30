@@ -6,11 +6,17 @@ class User(Base):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
-    email = Column(String, index=True, nullable=False)
+    email = Column(String, nullable=False)
     t_score = Column(Integer, default=0)
-    project_id = Column(Integer, ForeignKey("projects.id", ondelete="CASCADE"), nullable=False)
+    current_stage = Column(Integer, default=1)
 
+    project_id = Column(
+        Integer,
+        ForeignKey("projects.id", ondelete="CASCADE"),
+        nullable=False
+    )
+    
     project = relationship(
         "Project", 
-        back_populates="users"
+        back_populates="users"   # << this references Project.users
     )
