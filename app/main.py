@@ -1,11 +1,11 @@
 from fastapi import FastAPI
-from app.core.config import APP_NAME
-from app.api.v1.router import router
+from app.api.game import router as game_router
+from app.api.v1.endpoints import projects, users, tasks
+from app.api import game
 
-app = FastAPI(title=APP_NAME)
+app = FastAPI()
 
-@app.get("/health")
-def health_check():
-    return {"status": "ok"}
-
-app.include_router(router, prefix="/api")
+app.include_router(game.router)
+app.include_router(projects.router)  
+app.include_router(users.router) 
+app.include_router(tasks.router) 

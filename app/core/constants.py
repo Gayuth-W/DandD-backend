@@ -1,0 +1,1 @@
+MAX_STAGE=7
