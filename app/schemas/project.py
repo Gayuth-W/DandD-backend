@@ -8,10 +8,10 @@ class ProjectCreate(ProjectBase):
 
 class ProjectOut(ProjectBase):
     id: int
-    owner_id: int
+    # owner_id: int
 
-    class Config:
-        from_attributes = True
+    # class Config:
+    #     from_attributes = True
         
 class ProjectUpdate(BaseModel):
     name: str | None = None        
