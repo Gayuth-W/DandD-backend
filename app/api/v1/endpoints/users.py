@@ -8,7 +8,7 @@ from app.services.user_service import (
 
 router = APIRouter(prefix="/users", tags=["Users"])
 
-@router.post("/", response_model=UserBase)
+@router.post("/", response_model=UserOut)
 def create(data: UserBase, db: Session = Depends(get_db)):
   return create_user(db, data)
 

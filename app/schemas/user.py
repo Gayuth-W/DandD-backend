@@ -7,8 +7,11 @@ class UserBase(BaseModel):
 class UserCreate(UserBase):
     project_id: int
 
-class UserOut(UserBase):
+class UserOut(BaseModel):
     id: int
+    email: str
+    project_id: int
+    t_score: int
 
     class Config:
         orm_mode = True
