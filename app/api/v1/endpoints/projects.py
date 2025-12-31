@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from app.core.deps import get_db
+from app.core.database import get_db
 from app.schemas.project import ProjectBase, ProjectCreate, ProjectUpdate, ProjectOut
 from app.services.project_service import (
   create_project, get_project, get_projects, update_project, delete_project
