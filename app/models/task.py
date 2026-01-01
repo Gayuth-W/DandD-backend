@@ -12,6 +12,7 @@ class Task(Base):
     stage = Column(Integer, nullable=False)
     keywords = Column(String, nullable=True)
     project_id = Column(Integer,ForeignKey("projects.id", ondelete="CASCADE"),nullable=False)
+    is_default = Column(Boolean, nullable=True, default=False)
 
     project = relationship(
         "Project",

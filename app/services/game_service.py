@@ -52,11 +52,23 @@ def play_stage(
         task for task in tasks if keyword_match(task, user_response)
     ]
 
-    selected_task = random.choice(matched_tasks or tasks)
-    score_awarded = selected_task.score if selected_task in matched_tasks else 0
+    if matched_tasks:
+        selected_task = random.choice(matched_tasks)
+        matched = True
+    else:
+        default_task = next(
+            (task for task in tasks if task.is_default),
+            None
+        )
+
+        if not default_task:
+            return {"error": "No default task configured"}
+
+        selected_task = default_task
+        matched = False
 
     # Update user
-    user.t_score += score_awarded
+    user.t_score += selected_task.score
     user.current_stage += 1
 
     db.commit()
@@ -66,8 +78,8 @@ def play_stage(
 
     return {
         "task_text": selected_task.text,
-        "matched": selected_task in matched_tasks,
-        "score_awarded": score_awarded,
+        "matched": matched,
+        "score_awarded": selected_task.score,
         "total_score": user.t_score,
         "next_stage": user.current_stage,
         "completed": completed

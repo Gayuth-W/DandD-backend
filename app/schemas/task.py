@@ -10,6 +10,7 @@ class TaskCreate(TaskBase):
     score: int
     stage: int
     keywords: str
+    is_default: bool = False
 
 class TaskOut(TaskBase):
     id: int
@@ -18,6 +19,7 @@ class TaskOut(TaskBase):
     score: int
     stage: int
     keywords: str
+    is_default: bool
 
     class Config:
         from_attributes = True
