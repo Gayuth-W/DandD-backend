@@ -28,14 +28,12 @@ def upgrade() -> None:
         "UPDATE tasks SET is_default = FALSE WHERE is_default IS NULL"
     )
 
-    # 3️⃣ Enforce NOT NULL
     op.alter_column(
         'tasks',
         'is_default',
         nullable=False
     )
 
-    # 4️⃣ Enforce ONLY ONE default per (project_id, stage)
     op.execute("""
         CREATE UNIQUE INDEX unique_default_task_per_stage
         ON tasks (project_id, stage)
