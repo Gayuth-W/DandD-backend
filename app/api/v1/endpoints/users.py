@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from app.core.database import get_db
 from app.schemas.user import UserCreate, UserUpdate, UserOut, UserBase
-from app.services.user_service import (
+from app.repo.UserRepository import (
   create_user, get_user, get_users, update_user, delete_user
 )
 

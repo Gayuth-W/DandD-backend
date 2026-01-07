@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from app.core.database import get_db
 from app.schemas.task import TaskCreate, TaskUpdate, TaskOut
-from app.services.task_service import (
+from app.repo.TaskRepository import (
   create_task, get_task, get_tasks, update_task, delete_task
 )
 
