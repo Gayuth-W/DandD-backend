@@ -1,3 +1,4 @@
+from app.core.deps import get_current_admin
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from app.core.database import get_db
@@ -9,7 +10,7 @@ from app.repo.ProjectRepository import (
 router = APIRouter(prefix="/projects", tags=["Projects"])
 
 @router.post("/", response_model=ProjectBase)
-def create(data: ProjectBase, db: Session = Depends(get_db)):
+def create(data: ProjectBase, db: Session = Depends(get_db), admin: dict = Depends(get_current_admin)):
   return create_project(db, data)
 
 @router.get("/{project_id}", response_model=ProjectOut)
@@ -21,10 +22,10 @@ def read_all(db: Session = Depends(get_db)):
   return get_projects(db)
 
 @router.put("/{project_id}", response_model=ProjectOut)
-def update(project_id: int, data: ProjectUpdate, db: Session = Depends(get_db)):
+def update(project_id: int, data: ProjectUpdate, db: Session = Depends(get_db), admin: dict = Depends(get_current_admin)):
   return update_project(db, project_id, data)
 
 @router.delete("/{project_id}", status_code=204)
-def delete(project_id: int, db: Session = Depends(get_db)):
+def delete(project_id: int, db: Session = Depends(get_db), admin: dict = Depends(get_current_admin)):
   delete_project(db, project_id)
   return {"detail": "Project deleted"}
