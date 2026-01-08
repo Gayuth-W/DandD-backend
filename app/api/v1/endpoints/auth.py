@@ -4,7 +4,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from app.core.database import get_db
 from app.models.admin import Admin
-from app.core.security import verify_password
+from app.core.security import verify_password, hash_password
 from app.core.jwt import create_access_token
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
@@ -30,3 +30,25 @@ def admin_login(
         "access_token": token,
         "token_type": "bearer"
     }
+
+from pydantic import BaseModel
+
+class ChangePasswordSchema(BaseModel):
+    old_password: str
+    new_password: str
+
+@router.post("/admin/change-password")
+def change_password(
+    data: ChangePasswordSchema,
+    db: Session = Depends(get_db),
+):
+    admin = db.query(Admin).first()
+
+    if not verify_password(data.old_password, admin.password_hash):
+        raise HTTPException(status_code=401, detail="Wrong password")
+
+    admin.password_hash = hash_password(data.new_password)
+    admin.must_change_password = False
+    db.commit()
+
+    return {"message": "Password changed successfully"}
