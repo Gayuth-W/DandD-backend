@@ -2,9 +2,10 @@ from pydantic import BaseModel
 
 class ProjectBase(BaseModel):
     name: str
+    text: str
 
 class ProjectCreate(ProjectBase):
-    owner_id: int
+    text: str
 
 class ProjectOut(ProjectBase):
     id: int
